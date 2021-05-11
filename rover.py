@@ -14,16 +14,17 @@ def on_message(client, userdata, msg):
     global ser
     data = msg.payload.decode().rjust(4)
     if msg.topic == "A":
-        ser.write(bytes('A{0}'.format(data), encoding='utf8'))
-    
+        ser.write(bytes('A{0}'.format(data)))
+        
     elif msg.topic == "B":
-        ser.write(bytes('B{0}'.format(data), encoding='utf8'))
+        ser.write(bytes('B{0}'.format(data)))
 
     elif msg.topic == "C":
-        ser.write(bytes('C{0}'.format(data), encoding='utf8'))
+        ser.write(bytes('C{0}'.format(data)))
 
     elif msg.topic == "D":
-        ser.write(bytes('D{0}'.format(data), encoding='utf8'))
+        ser.write(bytes('D{0}'.format(data)))
+
 
 client = mqtt.Client()
 client.connect('localhost', 1883, 60)
@@ -33,6 +34,6 @@ client.on_message = on_message
 class A():
     def write(self,data):
         print(data)
-ser = A()# serial.Serial("/dev/arudino_uno", 9600)
+ser = serial.Serial("/dev/arduino_uno", 9600)
 
 client.loop_forever()
